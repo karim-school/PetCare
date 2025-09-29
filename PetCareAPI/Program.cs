@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace PetCareAPI;
 
 public class Program
@@ -26,9 +28,9 @@ public class Program
 
         var db = new PetCareContext();
 
-        app.MapGet("/zipcodes", (HttpContext context) =>
+        app.MapGet("/zipcodes", async (HttpContext context) =>
         {
-            var zipcodes = db.ZipCodes.ToArray();
+            var zipcodes = await db.ZipCodes.ToArrayAsync();
             return zipcodes;
         });
         
