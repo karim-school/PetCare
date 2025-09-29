@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCare", "PetCare\PetCare.csproj", "{3DCD7C84-6798-4301-81F0-7F10E620B02B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetCareAPI", "PetCareAPI\PetCareAPI.csproj", "{D2A78F61-5AD8-4A7B-AC6B-387259545ED7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3DCD7C84-6798-4301-81F0-7F10E620B02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DCD7C84-6798-4301-81F0-7F10E620B02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DCD7C84-6798-4301-81F0-7F10E620B02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DCD7C84-6798-4301-81F0-7F10E620B02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2A78F61-5AD8-4A7B-AC6B-387259545ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A78F61-5AD8-4A7B-AC6B-387259545ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A78F61-5AD8-4A7B-AC6B-387259545ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A78F61-5AD8-4A7B-AC6B-387259545ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
