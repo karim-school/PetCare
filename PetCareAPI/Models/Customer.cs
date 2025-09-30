@@ -17,7 +17,7 @@ public class Customer
     public string LastName { get; set; }
     
     [Column("phone")]
-    public ulong Phone { get; set; }
+    public long Phone { get; set; }
     
     [Column("email")]
     public string Email { get; set; }

@@ -29,7 +29,7 @@ public class Appointment
     public Treatment Treatment { get; set; }
     
     [Column("appointment_date")]
-    public DateOnly AppointmentDate { get; set; }
+    public DateTime AppointmentDate { get; set; }
     
     [Column("notes")]
     public string Notes { get; set; }

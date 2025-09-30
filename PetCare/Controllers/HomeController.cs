@@ -27,6 +27,15 @@ public class HomeController : Controller
         return View();
     }
 
+    public async Task<IActionResult> Appointment(int id)
+    {
+        var client = new HttpClient();
+        var response = await client.GetAsync($"http://localhost:5000/appointments/{id}");
+        if (!response.IsSuccessStatusCode) return NotFound();
+        ViewBag.Appointment = await response.Content.ReadAsAsync<Appointment>();
+        return View();
+    }
+
     public IActionResult Privacy()
     {
         return View();

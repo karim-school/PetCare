@@ -1,6 +1,6 @@
 ﻿namespace PetCareAPI;
 
-public enum PaymentStatus
+public enum PaymentStatus : byte
 {
     UNPAID,
     PAID

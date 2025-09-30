@@ -1,0 +1,26 @@
+﻿@{
+    var appointment = ViewBag.Appointment;
+}
+<h1>Appointment: @appointment.Id</h1>
+<div class="hstack">
+    <div class="vstack" style="flex: 0.8;">
+        <div class="hstack">
+            <div>@appointment.AppointmentDate</div>
+            <button class="ms-2">Reschedule</button>
+        </div>
+        <div class="hstack">
+            <div>Status</div>
+            <button class="ms-2">Change</button>
+        </div>
+        <div class="hstack">@appointment.Pet.Name</div>
+        <div class="hstack">
+            <div>@appointment.Staff.LastName, @appointment.Staff.FirstName</div>
+            <button class="ms-2">Reassign</button>
+        </div>
+        <div class="hstack">@appointment.Treatment.Name</div>
+    </div>
+    <div class="vstack" style="flex: 0.2;">
+        <div>@appointment.Notes</div>
+        <button class="ms-2 w-50">Edit</button>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿namespace PetCareAPI;
 
-public enum Sex
+public enum Sex : byte
 {
     MALE,
     FEMALE
