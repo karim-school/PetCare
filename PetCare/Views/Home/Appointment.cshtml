@@ -9,18 +9,18 @@
             <button class="ms-2">Reschedule</button>
         </div>
         <div class="hstack">
-            <div>Status</div>
+            <div>Status: @appointment.Status</div>
             <button class="ms-2">Change</button>
         </div>
-        <div class="hstack">@appointment.Pet.Name</div>
+        <div class="hstack">Pet: @appointment.Pet.Name</div>
         <div class="hstack">
-            <div>@appointment.Staff.LastName, @appointment.Staff.FirstName</div>
+            <div>Staff: @appointment.Staff.LastName, @appointment.Staff.FirstName</div>
             <button class="ms-2">Reassign</button>
         </div>
-        <div class="hstack">@appointment.Treatment.Name</div>
+        <div class="hstack">Treatment: @appointment.Treatment.Name</div>
     </div>
     <div class="vstack" style="flex: 0.2;">
-        <div>@appointment.Notes</div>
-        <button class="ms-2 w-50">Edit</button>
+        <textarea>@appointment.Notes</textarea>
+        <button class="ms-2 w-50">Save</button>
     </div>
 </div>

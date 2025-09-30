@@ -33,4 +33,7 @@ public class Appointment
     
     [Column("notes")]
     public string Notes { get; set; }
+    
+    [Column("status")]
+    public AppointmentStatus Status { get; set; }
 }
