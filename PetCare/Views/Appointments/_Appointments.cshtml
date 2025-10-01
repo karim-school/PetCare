@@ -1,0 +1,32 @@
+﻿@model Appointment[]
+
+<table class="w-100 table-bordered">
+    <thead>
+    <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">Pet</th>
+        <th class="p-2">Staff</th>
+        <th class="p-2">Treatment</th>
+        <th class="p-2">Date</th>
+        <th class="p-2">Status</th>
+        <th class="p-2">Notes</th>
+        <th class="p-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var appointment in @Model)
+    {
+        @:
+        <tr>
+            <td class="p-2">@appointment.Id</td>
+            <td class="p-2">@appointment.Pet.Name</td>
+            <td class="p-2">@appointment.Staff.FirstName @appointment.Staff.LastName</td>
+            <td class="p-2">@appointment.Treatment.Name</td>
+            <td class="p-2">@appointment.AppointmentDate</td>
+            <td class="p-2">@appointment.Status</td>
+            <td class="p-2">@appointment.Notes</td>
+            <td class="p-2 text-center"><a asp-controller="Appointments" asp-action="Single" asp-route-id="@appointment.Id" style="display: contents;">View</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

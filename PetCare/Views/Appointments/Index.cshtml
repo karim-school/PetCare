@@ -1,0 +1,15 @@
+﻿@{
+    var appointments = (Appointment[]) ViewBag.Appointments;
+    var appointment = (Appointment) ViewBag.Appointment;
+
+    if (appointment == null)
+    {
+        ViewData["Title"] = "Appointments";
+        await Html.RenderPartialAsync("_Appointments", ViewBag.Appointments, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Appointment " + appointment.Id;
+        await Html.RenderPartialAsync("_Appointment", ViewBag.Appointment, ViewData);
+    }
+}

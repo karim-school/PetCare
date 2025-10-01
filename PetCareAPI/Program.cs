@@ -34,6 +34,16 @@ public class Program
             return zipcodes;
         });
         
+        app.MapGet("/appointments", async (HttpContext context) =>
+        {
+            var appointment = await db.Appointments
+                .Include(a => a.Pet)
+                .Include(a => a.Staff)
+                .Include(a => a.Treatment)
+                .ToArrayAsync();
+            return Results.Ok(appointment);
+        });
+        
         app.MapGet("/appointments/{id:int}", async (HttpContext context, int id) =>
         {
             var appointment = await db.Appointments
