@@ -1,0 +1,26 @@
+﻿@model Staff[]
+
+<table class="w-100 table-bordered">
+    <thead>
+    <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">FirstName</th>
+        <th class="p-2">LastName</th>
+        <th class="p-2">Phone</th>
+        <th class="p-2">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var staff in @Model)
+    {
+        @:
+        <tr>
+            <td class="p-2">@staff.Id</td>
+            <td class="p-2">@staff.FirstName</td>
+            <td class="p-2">@staff.LastName</td>
+            <td class="p-2">@staff.Phone</td>
+            <td class="p-2">@staff.Email</td>
+        </tr>
+    }
+    </tbody>
+</table>

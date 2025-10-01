@@ -1,0 +1,15 @@
+﻿@{
+    var staff = (Staff) ViewBag.Staff;
+    var staffs = (Staff[])ViewBag.Staffs;
+
+    if (staff == null)
+    {
+        ViewData["Title"] = "Staff";
+        await Html.RenderPartialAsync("_Staffs", staffs, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Staff" + staff.Id;
+        await Html.RenderPartialAsync("_Staff", staff, ViewData);
+    }
+}
