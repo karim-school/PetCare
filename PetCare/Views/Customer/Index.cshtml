@@ -1,0 +1,15 @@
+﻿@{
+    var customers = (Customer[])ViewBag.Customers;
+    var customer = (Customer)ViewBag.Customer;
+
+    if (customer == null)
+    {
+        ViewData["Title"] = "Customers";
+        await Html.RenderPartialAsync("_Customers", customers, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Customer " + customer.Id;
+        await Html.RenderPartialAsync("_Customer", customer, ViewData);
+    }
+}

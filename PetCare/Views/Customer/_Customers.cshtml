@@ -1,0 +1,34 @@
+﻿@model Customer[]
+
+<table class="table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>ZipCode</th>
+            <th>Registration Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td class="p-2">@customer.Id</td>
+                <td class="p-2">@customer.FirstName</td>
+                <td class="p-2">@customer.LastName</td>
+                <td class="p-2">@customer.Phone</td>
+                <td class="p-2">@customer.Email</td>
+                <td class="p-2">@customer.Address</td>
+                <td class="p-2">@customer.ZipCodeKey</td>
+                <td class="p-2">@customer.RegistrationDate</td>
+                <td><a asp-controller="Customer" asp-action="Single" asp-route-id="@customer.Id">View</a></td>
+            </tr>
+        }
+</table>
+
+@{
+}
