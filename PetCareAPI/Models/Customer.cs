@@ -32,5 +32,5 @@ public class Customer
     public ZipCode ZipCode { get; set; }
     
     [Column("registration_date")]
-    public string RegistrationDate { get; set; }
+    public DateOnly RegistrationDate { get; set; }
 }
