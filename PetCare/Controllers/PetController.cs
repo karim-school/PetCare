@@ -4,7 +4,7 @@ using PetCareAPI.Models;
 namespace PetCare.Controllers;
 
 [Route("pets")]
-public class PetsController : Controller
+public class PetController : Controller
 {
     [HttpGet]
     public async Task<IActionResult> Index()

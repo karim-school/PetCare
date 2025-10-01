@@ -4,7 +4,7 @@ using PetCareAPI.Models;
 namespace PetCare.Controllers;
 
 [Route("appointments")]
-public class AppointmentsController : Controller
+public class AppointmentController : Controller
 {
 
     [HttpGet]
