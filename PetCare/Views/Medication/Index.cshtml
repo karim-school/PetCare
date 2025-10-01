@@ -1,0 +1,15 @@
+﻿@{
+    var medications = (Medication[]) ViewBag.Medications;
+    var medication = (Medication) ViewBag.Medication;
+
+    if (medication == null)
+    {
+        ViewData["Title"] = "Medications";
+        await Html.RenderPartialAsync("_Medications", medications, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Medication " + medication.Id;
+        await Html.RenderPartialAsync("_Medication", medication, ViewData);
+    }
+}

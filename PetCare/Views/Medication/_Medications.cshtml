@@ -1,0 +1,28 @@
+﻿@model Medication[]
+
+<table class="w-100 table-bordered">
+    <thead>
+    <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">Name</th>
+        <th class="p-2">Price</th>
+        <th class="p-2">Quantity</th>
+        <th class="p-2">Notes</th>
+        <th class="p-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var medication in @Model)
+    {
+    @:
+    <tr>
+        <td class="p-2">@medication.Id</td>
+        <td class="p-2">@medication.Name</td>
+        <td class="p-2">@medication.Price</td>
+        <td class="p-2">@medication.Quantity</td>
+        <td class="p-2">@medication.Notes</td>
+        <td class="p-2 text-center"><a asp-controller="Medication" asp-action="Single" asp-route-id="@medication.Id">View</a></td>
+    </tr>
+    }
+    </tbody>
+</table>
