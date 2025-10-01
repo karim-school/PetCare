@@ -1,0 +1,32 @@
+﻿@model Invoice[]
+
+<table class="table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Customer Name</th>
+            <th>Appointment ID</th>
+            <th>Total Price</th>
+            <th>Payment status</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var invoice in Model)
+        {
+            <tr>
+                <td class="p-2">@invoice.Id</td>
+                <td class="p-2">@invoice.Customer.FirstName @invoice.Customer.LastName</td>
+                <td class="p-2">@invoice.Appointment.Id</td>
+                <td class="p-2">@invoice.TotalPrice</td>
+                <td class="p-2">@invoice.PaymentStatus</td>
+                <td class="p-2">@invoice.IssueDate</td>
+                <td class="p-2">@invoice.DueDate</td>
+                <td><a asp-controller="Invoice" asp-action="Single" asp-route-id="@invoice.Id">View</a></td>
+            </tr>
+        }
+</table>
+
+@{
+}

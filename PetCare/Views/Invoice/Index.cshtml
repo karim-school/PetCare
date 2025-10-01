@@ -1,0 +1,15 @@
+﻿@{
+    var invoices = (Invoice[])ViewBag.Invoices;
+    var invoice = (Invoice)ViewBag.Invoice;
+
+    if (invoice == null)
+    {
+        ViewData["Title"] = "Invoices";
+        await Html.RenderPartialAsync("_Invoices", invoices, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Invoice " + invoice.Id;
+        await Html.RenderPartialAsync("_Invoice", invoice, ViewData);
+    }
+}
