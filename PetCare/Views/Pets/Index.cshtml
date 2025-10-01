@@ -1,0 +1,15 @@
+﻿@{
+    var pets = (Pet[]) ViewBag.Pets;
+    var pet = (Pet) ViewBag.Pet;
+
+    if (pet == null)
+    {
+        ViewData["Title"] = "Pets";
+        await Html.RenderPartialAsync("_Pets", pets, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Pet " + pet.Id;
+        await Html.RenderPartialAsync("_Pet", pet, ViewData);
+    }
+}

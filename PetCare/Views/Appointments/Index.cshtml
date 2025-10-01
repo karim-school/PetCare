@@ -5,11 +5,11 @@
     if (appointment == null)
     {
         ViewData["Title"] = "Appointments";
-        await Html.RenderPartialAsync("_Appointments", ViewBag.Appointments, ViewData);
+        await Html.RenderPartialAsync("_Appointments", appointments, ViewData);
     }
     else
     {
         ViewData["Title"] = "Appointment " + appointment.Id;
-        await Html.RenderPartialAsync("_Appointment", ViewBag.Appointment, ViewData);
+        await Html.RenderPartialAsync("_Appointment", appointment, ViewData);
     }
 }

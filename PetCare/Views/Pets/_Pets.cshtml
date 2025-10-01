@@ -1,0 +1,32 @@
+﻿@model Pet[]
+
+<table class="w-100 table-bordered">
+    <thead>
+    <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">Pet</th>
+        <th class="p-2">Staff</th>
+        <th class="p-2">Treatment</th>
+        <th class="p-2">Date</th>
+        <th class="p-2">Status</th>
+        <th class="p-2">Notes</th>
+        <th class="p-2"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var pet in @Model)
+    {
+        @:
+        <tr>
+            <td class="p-2">@pet.Id</td>
+            <td class="p-2">@pet.Customer.FirstName @pet.Customer.LastName</td>
+            <td class="p-2">@pet.Name</td>
+            <td class="p-2">@pet.Species.Name</td>
+            <td class="p-2">@pet.Breed</td>
+            <td class="p-2">@pet.BirthDate</td>
+            <td class="p-2">@pet.Sex</td>
+            <td class="p-2 text-center"><a asp-controller="Pets" asp-action="Single" asp-route-id="@pet.Id">View</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
