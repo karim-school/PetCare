@@ -1,0 +1,24 @@
+﻿@model Treatment[]
+
+<table class="w-100 table-bordered">
+    <thead>
+    <tr>
+        <th class="p-2">Id</th>
+        <th class="p-2">Name</th>
+        <th class="p-2">Price</th>
+        <th class="p-2">Duration (Minutes)</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var treatment in @Model)
+    {
+        @:
+        <tr>
+            <td class="p-2">@treatment.Id</td>
+            <td class="p-2">@treatment.Name</td>
+            <td class="p-2">@treatment.Price</td>
+            <td class="p-2">@treatment.DurationMinutes</td>
+        </tr>
+    }
+    </tbody>
+</table>

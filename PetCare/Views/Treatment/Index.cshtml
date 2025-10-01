@@ -1,0 +1,16 @@
+﻿@{
+    var treatment = (Treatment)ViewBag.Treatment;
+    var treatments = (Treatment[])ViewBag.Treatments;
+
+    if (treatment == null)
+    {
+        ViewData["Title"] = "Treatment";
+        await Html.RenderPartialAsync("_Treatments", treatments, ViewData);
+    }
+    else
+    {
+        ViewData["Title"] = "Treatment" + treatment.Id;
+        await Html.RenderPartialAsync("_Treatment", treatment, ViewData);
+    }
+}
+
