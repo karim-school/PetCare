@@ -1,4 +1,4 @@
-﻿namespace PetCareAPI;
+﻿namespace PetCareAPI.Enums;
 
 public enum Sex : byte
 {
