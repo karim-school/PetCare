@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
 namespace PetCareAPI;
@@ -27,177 +28,63 @@ public class Program
         app.UseAuthorization();
 
         var db = new PetCareContext();
-        
-        app.MapGet("/appointments", async (HttpContext context) =>
-        {
-            var appointments = await db.Appointments
-                .Include(a => a.Pet)
-                .Include(a => a.Staff)
-                .Include(a => a.Treatment)
-                .ToArrayAsync();
-            return Results.Ok(appointments);
-        });
-        
-        app.MapGet("/appointments/{id:int}", async (HttpContext context, int id) =>
-        {
-            var appointment = await db.Appointments
-                .Include(a => a.Pet)
-                .Include(a => a.Staff)
-                .Include(a => a.Treatment)
-                .FirstOrDefaultAsync(appointment => appointment.Id == id);
-            return appointment == null ? Results.NotFound() : Results.Ok(appointment);
-        });
-        
-        app.MapGet("/customers", async (HttpContext context) =>
-        {
-            var customers = await db.Customers
-                .Include(customer => customer.ZipCode)
-                .ToArrayAsync();
-            return Results.Ok(customers);
-        });
-        
-        app.MapGet("/customers/{id:int}", async (HttpContext context, int id) =>
-        {
-            var customer = await db.Customers
-                .Include(customer => customer.ZipCode)
-                .FirstOrDefaultAsync(customer => customer.Id == id);
-            return customer == null ? Results.NotFound() : Results.Ok(customer);
-        });
-        
-        app.MapGet("/invoices", async (HttpContext context) =>
-        {
-            var invoices = await db.Invoices
-                .Include(invoice => invoice.Customer)
-                .Include(invoice => invoice.Appointment)
-                .ToArrayAsync();
-            return Results.Ok(invoices);
-        });
-        
-        app.MapGet("/invoices/{id:int}", async (HttpContext context, int id) =>
-        {
-            var invoice = await db.Invoices
-                .Include(invoice => invoice.Customer)
-                .Include(invoice => invoice.Appointment)
-                .FirstOrDefaultAsync(invoice => invoice.Id == id);
-            return invoice == null ? Results.NotFound() : Results.Ok(invoice);
-        });
-        
-        app.MapGet("/medications", async (HttpContext context) =>
-        {
-            var medications = await db.Medications
-                .ToArrayAsync();
-            return Results.Ok(medications);
-        });
-        
-        app.MapGet("/medications/{id:int}", async (HttpContext context, int id) =>
-        {
-            var medication = await db.Medications
-                .FirstOrDefaultAsync(medication => medication.Id == id);
-            return medication == null ? Results.NotFound() : Results.Ok(medication);
-        });
-        
-        app.MapGet("/pets", async (HttpContext context) =>
-        {
-            var pets = await db.Pets
-                .Include(pet => pet.Customer)
-                .Include(pet => pet.Species)
-                .ToArrayAsync();
-            return Results.Ok(pets);
-        });
-        
-        app.MapGet("/pets/{id:int}", async (HttpContext context, int id) =>
-        {
-            var pet = await db.Pets
-                .Include(pet => pet.Customer)
-                .Include(pet => pet.Species)
-                .FirstOrDefaultAsync(pet => pet.Id == id);
-            return pet == null ? Results.NotFound() : Results.Ok(pet);
-        });
-        
-        app.MapGet("/species", async (HttpContext context) =>
-        {
-            var species = await db.Species
-                .ToArrayAsync();
-            return Results.Ok(species);
-        });
-        
-        app.MapGet("/species/{id}", async (HttpContext context, char id) =>
-        {
-            var species = await db.Species
-                .FirstOrDefaultAsync(species => species.Id == id);
-            return species == null ? Results.NotFound() : Results.Ok(species);
-        });
-        
-        app.MapGet("/staff", async (HttpContext context) =>
-        {
-            var staff = await db.Staff
-                .ToArrayAsync();
-            return Results.Ok(staff);
-        });
-        
-        app.MapGet("/staff/{id:int}", async (HttpContext context, int id) =>
-        {
-            var staff = await db.Staff
-                .FirstOrDefaultAsync(staff => staff.Id == id);
-            return staff == null ? Results.NotFound() : Results.Ok(staff);
-        });
-        
-        app.MapGet("/treatments", async (HttpContext context) =>
-        {
-            var treatments = await db.Treatments
-                .ToArrayAsync();
-            return Results.Ok(treatments);
-        });
-        
-        app.MapGet("/treatments/{id:int}", async (HttpContext context, int id) =>
-        {
-            var treatment = await db.Treatments
-                .FirstOrDefaultAsync(treatment => treatment.Id == id);
-            return treatment == null ? Results.NotFound() : Results.Ok(treatment);
-        });
-        
-        app.MapGet("/zipcodes", async (HttpContext context) =>
-        {
-            var zipcodes = await db.ZipCodes
-                .ToArrayAsync();
-            return Results.Ok(zipcodes);
-        });
-        
-        app.MapGet("/zipcodes/{code}", async (HttpContext context, string code) =>
-        {
-            var zipcode = await db.ZipCodes
-                .FirstOrDefaultAsync(zipcode => zipcode.Code == code);
-            return zipcode == null ? Results.NotFound() : Results.Ok(zipcode);
-        });
-        
-        app.MapGet("/medication_by_species/{species}", async (HttpContext context, char species) =>
-        {
-            var speciesMedication = await db.SpeciesMedications
-                .FirstOrDefaultAsync(speciesMedication => speciesMedication.SpeciesId == species);
-            return speciesMedication == null ? Results.NotFound() : Results.Ok(speciesMedication);
-        });
-        
-        app.MapGet("/species_by_medication/{medication:int}", async (HttpContext context, int medication) =>
-        {
-            var speciesMedication = await db.SpeciesMedications
-                .FirstOrDefaultAsync(speciesMedication => speciesMedication.MedicationId == medication);
-            return speciesMedication == null ? Results.NotFound() : Results.Ok(speciesMedication);
-        });
-        
-        app.MapGet("/treatment_by_species/{species}", async (HttpContext context, char species) =>
-        {
-            var speciesTreatment = await db.SpeciesTreatment
-                .FirstOrDefaultAsync(speciesMedication => speciesMedication.SpeciesId == species);
-            return speciesTreatment == null ? Results.NotFound() : Results.Ok(speciesTreatment);
-        });
-        
-        app.MapGet("/species_by_treatment/{treatment:int}", async (HttpContext context, int treatment) =>
-        {
-            var speciesTreatment = await db.SpeciesTreatment
-                .FirstOrDefaultAsync(speciesMedication => speciesMedication.TreatmentId == treatment);
-            return speciesTreatment == null ? Results.NotFound() : Results.Ok(speciesTreatment);
-        });
+
+        MapResource("/appointments",db.Appointments
+            .Include(a => a.Pet)
+            .Include(a => a.Staff)
+            .Include(a => a.Treatment),
+            (int arg1) => appointment => appointment.Id == arg1);
+        MapResource("/customers", db.Customers
+            .Include(customer => customer.ZipCode),
+            (int arg1) => customer => customer.Id == arg1);
+        MapResource("/invoices", db.Invoices
+            .Include(invoice => invoice.Customer)
+            .Include(invoice => invoice.Appointment),
+            (int arg1) => invoice => invoice.Id == arg1);
+        MapResource("/medications", db.Medications, (int arg1) => medication => medication.Id == arg1);
+        MapResource("/pets", db.Pets
+            .Include(pet => pet.Customer)
+            .Include(pet => pet.Species),
+            (int arg1) => pet => pet.Id == arg1);
+        MapResource("/species", db.Species, (int arg1) => species => species.Id == arg1);
+        MapResource("/staff", db.Staff, (int arg1) => staff => staff.Id == arg1);
+        MapResource("/treatments", db.Treatments, (int arg1) => treatment => treatment.Id == arg1);
+        MapResource("/zipcodes", db.ZipCodes, (string arg1) => zipCode => zipCode.Code == arg1);
+        app.MapGet("/medication_by_species/{arg1}",
+            Select(db.SpeciesMedications, (char arg1) => speciesMedication => speciesMedication.SpeciesId == arg1));
+        app.MapGet("/species_by_medication/{arg1:int}",
+            Select(db.SpeciesMedications, (int arg1) => speciesMedication => speciesMedication.MedicationId == arg1));
+        app.MapGet("/treatment_by_species/{arg1}",
+            Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.SpeciesId == arg1));
+        app.MapGet("/species_by_treatment/{arg1:int}",
+            Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.TreatmentId == arg1));
         
         app.Run();
+        return;
+
+        Func<HttpContext, TP, Task<IResult>> First<TP, T>(IQueryable<T> queryable, Func<TP, Expression<Func<T, bool>>> predicate) where T : class
+        {
+            return async (_, arg1) =>
+            {
+                var result = await queryable.FirstOrDefaultAsync(predicate(arg1));
+                return result == null ? Results.NotFound() : Results.Ok(result);
+            };
+        }
+
+        Func<HttpContext, Task<IResult>> All<T>(IQueryable<T> queryable) where T : class
+        {
+            return async _ => Results.Ok(await queryable.ToArrayAsync());
+        }
+        
+        Func<HttpContext, TP, Task<IResult>> Select<TP, T>(IQueryable<T> queryable, Func<TP, Expression<Func<T, bool>>> predicate) where T : class
+        {
+            return async (_, arg1) => Results.Ok(await queryable.Where(predicate(arg1)).ToArrayAsync());
+        }
+
+        void MapResource<TP, T>(string pattern, IQueryable<T> queryable, Func<TP, Expression<Func<T, bool>>> predicate) where T : class
+        {
+            app.MapGet(pattern, All(queryable));
+            app.MapGet(pattern + "/{arg1:int}", First(queryable, predicate));
+        }
     }
 }
