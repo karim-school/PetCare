@@ -42,10 +42,7 @@ public class Program
             .Include(invoice => invoice.Appointment),
             (int arg1) => invoice => invoice.Id == arg1);
         MapResource("/medications", db.Medications, (int arg1) => medication => medication.Id == arg1);
-        MapResource("/pets", db.Pets
-            .Include(pet => pet.Customer)
-            .Include(pet => pet.Species),
-            (int arg1) => pet => pet.Id == arg1);
+        MapResource("/pets", db.Pets, (int arg1) => pet => pet.Id == arg1);
         MapResource("/species", db.Species, (int arg1) => species => species.Id == arg1);
         MapResource("/staff", db.Staff, (int arg1) => staff => staff.Id == arg1);
         MapResource("/treatments", db.Treatments, (int arg1) => treatment => treatment.Id == arg1);

@@ -4,12 +4,13 @@
     <thead>
     <tr>
         <th class="p-2">Id</th>
-        <th class="p-2">Customer</th>
         <th class="p-2">Name</th>
         <th class="p-2">Species</th>
         <th class="p-2">Breed</th>
-        <th class="p-2">Birth Date</th>
         <th class="p-2">Sex</th>
+        <th class="p-2">Age</th>
+        <th class="p-2">Birth Date</th>
+        <th class="p-2">Customer</th>
         <th class="p-2"></th>
     </tr>
     </thead>
@@ -19,12 +20,14 @@
         @:
         <tr>
             <td class="p-2">@pet.Id</td>
-            <td class="p-2">@pet.Customer.FirstName @pet.Customer.LastName</td>
             <td class="p-2">@pet.Name</td>
-            <td class="p-2">@pet.Species.Name</td>
+            <td class="p-2">@pet.Species</td>
             <td class="p-2">@pet.Breed</td>
-            <td class="p-2">@pet.BirthDate</td>
             <td class="p-2">@pet.Sex</td>
+            @if (pet.AgeInYears != 0) {<td class="p-2">@pet.AgeInYears years</td>}
+            else {<td class="p-2">@pet.AgeInWeeks weeks</td>}
+            <td class="p-2">@pet.BirthDate</td>
+            <td class="p-2">@pet.Owner</td>
             <td class="p-2 text-center"><a asp-controller="Pet" asp-action="Single" asp-route-id="@pet.Id">View</a></td>
         </tr>
     }
