@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "Add a new pet";
+}
+
+<div>
+    <h1>@ViewData["Title"]</h1>
+    @{await Html.RenderPartialAsync("_NewPetForm", ViewData);}
+</div>

@@ -1,5 +1,8 @@
 using System.Linq.Expressions;
+using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using PetCareAPI.Forms;
 
 namespace PetCareAPI;
 
@@ -43,7 +46,7 @@ public class Program
             (int arg1) => invoice => invoice.Id == arg1);
         MapResource("/medications", db.Medications, (int arg1) => medication => medication.Id == arg1);
         MapResource("/pets", db.Pets, (int arg1) => pet => pet.Id == arg1);
-        MapResource("/species", db.Species, (int arg1) => species => species.Id == arg1);
+        MapResource("/species", db.Species, (char arg1) => species => species.Id == arg1);
         MapResource("/staff", db.Staff, (int arg1) => staff => staff.Id == arg1);
         MapResource("/treatments", db.Treatments, (int arg1) => treatment => treatment.Id == arg1);
         MapResource("/zipcodes", db.ZipCodes, (string arg1) => zipCode => zipCode.Code == arg1);
@@ -55,6 +58,24 @@ public class Program
             Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.SpeciesId == arg1));
         app.MapGet("/species_by_treatment/{arg1:int}",
             Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.TreatmentId == arg1));
+        app.MapPost("/pets/new", async context =>
+        {
+            using var stream = new StreamReader(context.Request.Body, Encoding.UTF8);
+            var pet = JsonConvert.DeserializeObject<NewPetForm>(await stream.ReadToEndAsync())!;
+            var customer = pet.CustomerId;
+            var name = pet.Name;
+            var species = pet.SpeciesId;
+            var breed = pet.Breed;
+            var birthDate = pet.BirthDate;
+            var sex = pet.Sex;
+            var results = await db.Database.SqlQuery<decimal>($"dbo.sp_new_pet {customer}, {name}, {species}, {breed}, {birthDate}, {sex}").ToArrayAsync();
+            var id = (int) results.FirstOrDefault();
+            var response = new NewPetForm.Response()
+            {
+                Id = id
+            };
+            await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+        });
         
         app.Run();
         return;
@@ -81,7 +102,7 @@ public class Program
         void MapResource<TP, T>(string pattern, IQueryable<T> queryable, Func<TP, Expression<Func<T, bool>>> predicate) where T : class
         {
             app.MapGet(pattern, All(queryable));
-            app.MapGet(pattern + "/{arg1:int}", First(queryable, predicate));
+            app.MapGet(pattern + "/{arg1}", First(queryable, predicate));
         }
     }
 }

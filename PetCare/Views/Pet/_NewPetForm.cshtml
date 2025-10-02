@@ -1,0 +1,14 @@
+﻿@model PetCareAPI.Forms.NewPetForm
+
+<form method="post" asp-action="Create">
+    <input type="number" asp-for="CustomerId" placeholder="Customer"/>
+    <input type="text" asp-for="Name" placeholder="Name"/>
+    <input type="text" asp-for="SpeciesId" placeholder="Species"/>
+    <input type="text" asp-for="Breed" placeholder="Breed"/>
+    <input type="date" asp-for="BirthDate" placeholder="BirthDate"/>
+    <select asp-for="Sex">
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+    </select>
+    <input type="submit"/>
+</form>
