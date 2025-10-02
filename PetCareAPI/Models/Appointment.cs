@@ -33,7 +33,7 @@ public class Appointment
     public DateTime AppointmentDate { get; set; }
     
     [Column("notes")]
-    public string Notes { get; set; }
+    public string? Notes { get; set; }
     
     [Column("status")]
     public AppointmentStatus Status { get; set; }

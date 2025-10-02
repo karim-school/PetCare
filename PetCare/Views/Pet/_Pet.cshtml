@@ -1,4 +1,25 @@
 @model Pet
+@{
+    var appointments = (Appointment[]) ViewBag.Appointments;
+}
 
-<h1>Pet: @Model.Id</h1>
-<p>@Model.Name</p>
+<div class="w-100 hstack">
+    <div style="flex: 1;">
+        <h1>@Model.Name (@Model.Id)</h1>
+        <p><span>Species: </span>@Model.Species</p>
+        <p><span>Breed: </span>@Model.Breed</p>
+        <p><span>Sex: </span>@Model.Sex</p>
+        <p><span>Age: </span>@(Model.AgeInYears != 0 ? Model.AgeInYears + " years" : Model.AgeInWeeks + " weeks")</p>
+        <p><span>Birth Date: </span>@Model.BirthDate</p>
+        <p><span>Owner: </span>@Model.Owner</p>
+    </div>
+    <div style="flex: 1;">
+        <h2>Journal</h2>
+        <ul class="w-100 list-unstyled" style="border: 1px solid #000;">
+            @foreach (var appointment in appointments.OrderByDescending(appointment => appointment.AppointmentDate))
+            {
+                @:<li class="p-2" style="background-color: lightgray;">@{await Html.RenderPartialAsync("_JournalEntry", appointment, ViewData);}</li>
+            }
+        </ul>
+    </div>
+</div>

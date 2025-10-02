@@ -9,7 +9,7 @@
     }
     else
     {
-        ViewData["Title"] = "Pet " + pet.Id;
+        ViewData["Title"] = $"{pet.Name} ({pet.Id})";
         await Html.RenderPartialAsync("_Pet", pet, ViewData);
     }
 }

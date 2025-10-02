@@ -21,6 +21,9 @@ public class PetController : Controller
         var client = new HttpClient();
         var response = await client.GetAsync($"http://localhost:5000/pets/{id}");
         ViewBag.Pet = await response.Content.ReadAsAsync<Pet>();
+        response = await client.GetAsync($"http://localhost:5000/appointments");
+        var appointments = await response.Content.ReadAsAsync<Appointment[]>();
+        ViewBag.Appointments = appointments.Where(appointment => appointment.PetId == ViewBag.Pet.Id).ToArray();
         return View("Index");
     }
 }

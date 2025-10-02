@@ -1,0 +1,20 @@
+﻿@using PetCareAPI.Enums
+@model Appointment
+@{
+    var statusColor = Model.Status switch
+    {
+        AppointmentStatus.SCHEDULED => "cornflowerblue",
+        AppointmentStatus.FINISHED => "forestgreen",
+        AppointmentStatus.CANCELLED => "red",
+        _ => throw new ArgumentOutOfRangeException()
+    };
+}
+
+<span class="fw-bold">@Model.AppointmentDate</span>
+<br/>
+<span>Treatment: @Model.Treatment.Name</span>
+<br/>
+<span>Staff: @Model.Staff.FirstName @Model.Staff.LastName</span>
+<br/>
+@if (@Model.Notes != null) {<span>Notes: @Model.Notes</span>}
+<span>Status: <span class="fw-bold" style="color: @statusColor;">@Model.Status</span></span>
