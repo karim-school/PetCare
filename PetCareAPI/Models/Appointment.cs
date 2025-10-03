@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PetCareAPI.Enums;
+using PetCareAPI.Views;
 
 namespace PetCareAPI.Models;
 
@@ -15,7 +16,7 @@ public class Appointment
     [Column("pet_id")]
     public int PetId { get; set; }
     
-    public Pet Pet { get; set; }
+    public PetView PetView { get; set; }
     
     [ForeignKey("Staff")]
     [Column("staff_id")]

@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PetCareAPI.Forms;
 using PetCareAPI.Models;
+using PetCareAPI.Views;
 
 namespace PetCare.Controllers;
 
@@ -13,7 +14,7 @@ public class PetController : Controller
     {
         var client = new HttpClient();
         var response = await client.GetAsync("http://localhost:5000/pets");
-        ViewBag.Pets = await response.Content.ReadAsAsync<Pet[]>();
+        ViewBag.Pets = await response.Content.ReadAsAsync<PetView[]>();
         return View();
     }
     
@@ -22,8 +23,8 @@ public class PetController : Controller
     {
         var client = new HttpClient();
         var response = await client.GetAsync($"http://localhost:5000/pets/{id}");
-        ViewBag.Pet = await response.Content.ReadAsAsync<Pet>();
-        response = await client.GetAsync($"http://localhost:5000/appointments");
+        ViewBag.Pet = await response.Content.ReadAsAsync<PetView>();
+        response = await client.GetAsync("http://localhost:5000/appointments");
         var appointments = await response.Content.ReadAsAsync<Appointment[]>();
         ViewBag.Appointments = appointments.Where(appointment => appointment.PetId == ViewBag.Pet.Id).ToArray();
         return View("Index");
@@ -39,7 +40,7 @@ public class PetController : Controller
     public async Task<IActionResult> Create(NewPetForm form)
     {
         var client = new HttpClient();
-        var response = await client.PostAsync($"http://localhost:5000/pets/new", JsonContent.Create(form));
+        var response = await client.PostAsync("http://localhost:5000/pets/new", JsonContent.Create(form));
         var content = JsonConvert.DeserializeObject<NewPetForm.Response>(await response.Content.ReadAsStringAsync())!;
         return RedirectToAction("Single", new { id = content.Id });
     }

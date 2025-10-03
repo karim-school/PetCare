@@ -1,0 +1,7 @@
+﻿@using PetCareAPI.Views
+@model PetView
+
+<span>Name: @Model.Name</span>
+<span>Breed: @Model.Breed (@Model.Species)</span>
+<span>Age: @(Model.AgeInYears != 0 ? Model.AgeInYears + " years" : Model.AgeInWeeks + " weeks") (@Model.BirthDate)</span>
+<span>Sex: @Model.Sex</span>

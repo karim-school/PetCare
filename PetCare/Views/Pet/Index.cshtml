@@ -1,6 +1,7 @@
-﻿@{
-    var pets = (Pet[]) ViewBag.Pets;
-    var pet = (Pet) ViewBag.Pet;
+﻿@using PetCareAPI.Views
+@{
+    var pets = (PetView[]) ViewBag.Pets;
+    var pet = (PetView) ViewBag.Pet;
 
     if (pet == null)
     {

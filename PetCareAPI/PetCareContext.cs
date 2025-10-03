@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PetCareAPI.Models;
+using PetCareAPI.Views;
 
 namespace PetCareAPI;
 
@@ -26,6 +27,8 @@ internal class PetCareContext : DbContext
     public DbSet<Medication> Medications { get; set; }
     
     public DbSet<SpeciesMedication> SpeciesMedications { get; set; }
+    
+    public DbSet<PetView> PetsView { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

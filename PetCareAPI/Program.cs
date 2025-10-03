@@ -33,7 +33,7 @@ public class Program
         var db = new PetCareContext();
 
         MapResource("/appointments",db.Appointments
-            .Include(a => a.Pet)
+            .Include(a => a.PetView)
             .Include(a => a.Staff)
             .Include(a => a.Treatment),
             (int arg1) => appointment => appointment.Id == arg1);
@@ -45,7 +45,7 @@ public class Program
             .Include(invoice => invoice.Appointment),
             (int arg1) => invoice => invoice.Id == arg1);
         MapResource("/medications", db.Medications, (int arg1) => medication => medication.Id == arg1);
-        MapResource("/pets", db.Pets, (int arg1) => pet => pet.Id == arg1);
+        MapResource("/pets", db.PetsView, (int arg1) => pet => pet.Id == arg1);
         MapResource("/species", db.Species, (char arg1) => species => species.Id == arg1);
         MapResource("/staff", db.Staff, (int arg1) => staff => staff.Id == arg1);
         MapResource("/treatments", db.Treatments, (int arg1) => treatment => treatment.Id == arg1);
@@ -58,6 +58,12 @@ public class Program
             Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.SpeciesId == arg1));
         app.MapGet("/species_by_treatment/{arg1:int}",
             Select(db.SpeciesTreatment, (char arg1) => speciesTreatment => speciesTreatment.TreatmentId == arg1));
+        app.MapGet("/customers/{arg1:int}/pets", async (HttpContext _, int arg1) =>
+        {
+            var ids = await db.Pets.Where(pet => pet.CustomerId == arg1).Select(pet => pet.Id).ToArrayAsync();
+            var pets = await db.PetsView.Where(pet => ids.Contains(pet.Id)).ToArrayAsync();
+            return Results.Ok(pets);
+        });
         app.MapPost("/pets/new", async context =>
         {
             using var stream = new StreamReader(context.Request.Body, Encoding.UTF8);

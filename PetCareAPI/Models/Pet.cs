@@ -4,32 +4,34 @@ using PetCareAPI.Enums;
 
 namespace PetCareAPI.Models;
 
-[Table("v_pets")]
+[Table("pets")]
 public class Pet
 {
     [Key]
     [Column("id")]
     public int Id { get; set; }
     
+    [ForeignKey("Customer")]
+    [Column("customer_id")]
+    public int CustomerId { get; set; }
+    
     [Column("name")]
     public string Name { get; set; }
     
-    [Column("species")]
-    public string Species { get; set; }
+    [ForeignKey("Species")]
+    [Column("species_id")]
+    public char SpeciesId { get; set; }
     
     [Column("breed")]
     public string Breed { get; set; }
     
-    [Column("sex")]
-    public string Sex { get; set; }
-    
     [Column("birth_date")]
     public DateOnly BirthDate { get; set; }
     
-    [Column("owner")]
-    public string Owner { get; set; }
+    [Column("sex")]
+    public Sex Sex { get; set; }
 
-    public int AgeInYears => (DateTime.MinValue + (DateTime.Now - BirthDate.ToDateTime(TimeOnly.MinValue))).Year - 1;
-
-    public int AgeInWeeks => (int)Math.Floor((DateTime.Now - BirthDate.ToDateTime(TimeOnly.MinValue)).Days / 7.0f);
+    public Customer Customer { get; set; }
+    
+    public Species Species { get; set; }
 }

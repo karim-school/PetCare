@@ -1,4 +1,25 @@
-﻿@model Customer
+﻿@using PetCareAPI.Views
+@model Customer
+@{
+    var pets = (PetView[]) ViewBag.Pets;
+}
 
-<h1>Customer: @Model.Id</h1>
-<p>@Model.FirstName @Model.LastName</p>
+<div class="w-100 hstack">
+    <div style="flex: 1;">
+        <h1>@Model.FirstName @Model.LastName (@Model.Id)</h1>
+        <p><span>Email: </span>@Model.Email</p>
+        <p><span>Address: </span>@Model.Address</p>
+        <p><span>City: </span>@Model.ZipCode.City (@Model.ZipCode.Code)</p>
+        <p><span>Phone: </span>@Model.Phone</p>
+        <p><span>Registration Date: </span>@Model.RegistrationDate</p>
+    </div>
+    <div style="flex: 1;">
+        <h2>Pets</h2>
+        <ul class="w-100 list-unstyled" style="border: 1px solid #000;">
+            @foreach (var pet in pets)
+            {
+                @:<li class="p-2" style="background-color: lightgray;">@{await Html.RenderPartialAsync("_Pet", pet, ViewData);}</li>
+            }
+        </ul>
+    </div>
+</div>
