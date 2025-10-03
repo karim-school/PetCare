@@ -15,6 +15,7 @@ public class CustomerController : Controller
         ViewBag.Customers = await response.Content.ReadAsAsync<Customer[]>();
         return View();
     }
+    
     [HttpGet("{id:int}")]
     public async Task<IActionResult> Single(int id)
     {
