@@ -12,23 +12,17 @@ public class Appointment
     [Column("id")]
     public int Id { get; set; }
     
-    [ForeignKey("Pet")]
+    [ForeignKey("PetView")]
     [Column("pet_id")]
     public int PetId { get; set; }
-    
-    public PetView PetView { get; set; }
     
     [ForeignKey("Staff")]
     [Column("staff_id")]
     public int StaffId { get; set; }
     
-    public Staff Staff { get; set; }
-    
     [ForeignKey("Treatment")]
     [Column("treatment_id")]
     public int TreatmentId { get; set; }
-    
-    public Treatment Treatment { get; set; }
     
     [Column("appointment_date")]
     public DateTime AppointmentDate { get; set; }
@@ -38,4 +32,10 @@ public class Appointment
     
     [Column("status")]
     public AppointmentStatus Status { get; set; }
+    
+    public PetView PetView { get; set; }
+    
+    public Staff Staff { get; set; }
+    
+    public Treatment Treatment { get; set; }
 }
