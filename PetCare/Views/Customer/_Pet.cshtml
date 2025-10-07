@@ -2,6 +2,9 @@
 @model PetView
 
 <span>Name: @Model.Name</span>
+<br/>
 <span>Breed: @Model.Breed (@Model.Species)</span>
+<br/>
 <span>Age: @(Model.AgeInYears != 0 ? Model.AgeInYears + " years" : Model.AgeInWeeks + " weeks") (@Model.BirthDate)</span>
+<br/>
 <span>Sex: @Model.Sex</span>
